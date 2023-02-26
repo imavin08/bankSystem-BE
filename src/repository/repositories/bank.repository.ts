@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BankRequest } from 'src/dto';
+import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
 import { Bank } from 'src/modules/bank/entities/bank.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BankRepository {
@@ -23,7 +24,7 @@ export class BankRepository {
 		return this.bankRepository.save(request);
 	}
 
-	async update(id: number, data: Partial<Bank>): Promise<void> {
+	async update(id: number, data: UpdateBankRequest): Promise<void> {
 		await this.bankRepository.update(id, data);
 	}
 

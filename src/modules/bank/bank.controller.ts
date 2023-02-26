@@ -2,9 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BankRequest, BankResponse } from 'src/dto';
 import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
-import { DeleteResult } from 'typeorm';
 import { BankService } from './bank.service';
-import { Bank } from './entities/bank.entity';
 
 @Controller('bank')
 @ApiTags('bank')

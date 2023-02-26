@@ -2,8 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { BankRequest, BankResponse } from 'src/dto';
 import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
 import { BankRepository } from 'src/repository';
-import { DeleteResult } from 'typeorm';
-import { Bank } from './entities/bank.entity';
 
 @Injectable()
 export class BankService {

@@ -6,8 +6,5 @@ export class Category {
 	id: number;
 
 	@Column()
-	amount: number;
-
-	@Column()
-	type: string;
+	name: string;
 }

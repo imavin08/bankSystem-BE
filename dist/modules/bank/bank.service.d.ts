@@ -1,8 +1,12 @@
-import { BankRequest } from 'src/dto/bank/requests/bank.request';
+import { BankRequest, BankResponse } from 'src/dto';
+import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
 import { BankRepository } from 'src/repository';
-import { Bank } from './entities/bank.entity';
 export declare class BankService {
     private readonly bankRepository;
     constructor(bankRepository: BankRepository);
-    createBank(request: BankRequest): Promise<Bank>;
+    findAllBanks(): Promise<BankResponse[]>;
+    findBankById(id: number): Promise<BankResponse>;
+    createBank(request: BankRequest): Promise<BankResponse>;
+    updateBank(id: number, data: UpdateBankRequest): Promise<BankResponse>;
+    deleteBank(id: number): Promise<void>;
 }

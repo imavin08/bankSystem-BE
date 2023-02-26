@@ -16,8 +16,27 @@ let BankService = class BankService {
     constructor(bankRepository) {
         this.bankRepository = bankRepository;
     }
+    async findAllBanks() {
+        return this.bankRepository.findAll();
+    }
+    async findBankById(id) {
+        const bank = await this.bankRepository.findById(id);
+        if (!bank) {
+            throw new common_1.NotFoundException(`Bank with id ${id} was not found`);
+        }
+        return bank;
+    }
     async createBank(request) {
         return this.bankRepository.create(request);
+    }
+    async updateBank(id, data) {
+        const bank = await this.findBankById(id);
+        await this.bankRepository.update(id, data);
+        return Object.assign(Object.assign({}, bank), data);
+    }
+    async deleteBank(id) {
+        await this.findBankById(id);
+        await this.bankRepository.delete(id);
     }
 };
 BankService = __decorate([

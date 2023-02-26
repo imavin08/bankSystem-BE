@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Bank } from 'src/modules/bank/entities/bank.entity';
-import { BankRepository } from './repositories';
+import { Category } from 'src/modules/category/entities/category.entity';
+import { BankRepository, CategoryRepository } from './repositories';
 
-const providers = [BankRepository];
-const entities = [Bank];
+const providers = [BankRepository, CategoryRepository];
+const entities = [Bank, Category];
 
 @Module({
 	imports: [TypeOrmModule.forFeature([...entities])],

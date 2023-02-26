@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankModule } from './modules/bank/bank.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
 	imports: [
@@ -18,6 +19,7 @@ import { BankModule } from './modules/bank/bank.module';
 			autoLoadEntities: true,
 		}),
 		BankModule,
+		CategoryModule,
 	],
 	controllers: [],
 	providers: [],

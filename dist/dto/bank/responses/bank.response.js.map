@@ -1,1 +1,1 @@
-{"version":3,"file":"bank.response.js","sourceRoot":"","sources":["../../../../src/dto/bank/responses/bank.response.ts"],"names":[],"mappings":";;;AAAA,0CAAsC;AAEtC,MAAa,YAAa,SAAQ,kBAAO;CAExC;AAFD,oCAEC"}
+{"version":3,"file":"bank.response.js","sourceRoot":"","sources":["../../../../src/dto/bank/responses/bank.response.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA8C;AAC9C,yDAA2C;AAC3C,qDAA2C;AAC3C,0CAAsC;AAEtC,MAAa,YAAa,SAAQ,kBAAO;CAKxC;AAJA;IAAC,IAAA,qBAAW,EAAC,EAAE,OAAO,EAAE,CAAC,EAAE,CAAC;IAC3B,IAAA,0BAAM,GAAE;IACR,IAAA,0BAAQ,GAAE;;wCACA;AAJZ,oCAKC"}

@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const bank_module_1 = require("./modules/bank/bank.module");
+const category_module_1 = require("./modules/category/category.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,6 +30,7 @@ AppModule = __decorate([
                 autoLoadEntities: true,
             }),
             bank_module_1.BankModule,
+            category_module_1.CategoryModule,
         ],
         controllers: [],
         providers: [],

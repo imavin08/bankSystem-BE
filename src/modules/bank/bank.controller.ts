@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
 import { BankRequest } from 'src/dto/bank/requests/bank.request';
 import { BankResponse } from 'src/dto/bank/responses/bank.response';

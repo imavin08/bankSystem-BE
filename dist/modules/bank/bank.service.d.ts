@@ -1,8 +1,8 @@
 import { BankRequest } from 'src/dto/bank/requests/bank.request';
-import { Repository } from 'typeorm';
+import { BankRepository } from 'src/repository';
 import { Bank } from './entities/bank.entity';
 export declare class BankService {
-    private bankRepository;
-    constructor(bankRepository: Repository<Bank>);
+    private readonly bankRepository;
+    constructor(bankRepository: BankRepository);
     createBank(request: BankRequest): Promise<Bank>;
 }

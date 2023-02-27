@@ -2,10 +2,15 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Bank } from 'src/modules/bank/entities/bank.entity';
 import { Category } from 'src/modules/category/entities/category.entity';
-import { BankRepository, CategoryRepository } from './repositories';
+import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
+import {
+	BankRepository,
+	CategoryRepository,
+	TransactionRepository,
+} from './repositories';
 
-const providers = [BankRepository, CategoryRepository];
-const entities = [Bank, Category];
+const providers = [BankRepository, CategoryRepository, TransactionRepository];
+const entities = [Bank, Category, Transaction];
 
 @Module({
 	imports: [TypeOrmModule.forFeature([...entities])],

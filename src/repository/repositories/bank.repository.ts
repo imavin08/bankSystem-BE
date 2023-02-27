@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BankRequest } from 'src/dto';
-import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
+import { BankRequest } from 'src/common/dto';
+import { UpdateBankRequest } from 'src/common/dto/bank/requests/update-bank.request';
 import { Bank } from 'src/modules/bank/entities/bank.entity';
 import { Repository } from 'typeorm';
 

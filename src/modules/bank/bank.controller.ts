@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BankRequest, BankResponse } from 'src/dto';
-import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
+import { BankRequest, BankResponse } from 'src/common/dto';
+import { UpdateBankRequest } from 'src/common/dto/bank/requests/update-bank.request';
 import { BankService } from './bank.service';
 
 @Controller('bank')

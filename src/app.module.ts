@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankModule } from './modules/bank/bank.module';
 import { CategoryModule } from './modules/category/category.module';
+import { TransactionModule } from './modules/transaction/transaction.module';
 
 @Module({
 	imports: [
@@ -20,6 +21,7 @@ import { CategoryModule } from './modules/category/category.module';
 		}),
 		BankModule,
 		CategoryModule,
+		TransactionModule,
 	],
 	controllers: [],
 	providers: [],

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BankRequest, BankResponse } from 'src/dto';
-import { UpdateBankRequest } from 'src/dto/bank/requests/update-bank.request';
+import { BankRequest, BankResponse } from 'src/common/dto';
+import { UpdateBankRequest } from 'src/common/dto/bank/requests/update-bank.request';
 import { BankRepository } from 'src/repository';
 
 @Injectable()

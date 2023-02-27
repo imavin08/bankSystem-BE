@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Category {
@@ -7,4 +8,7 @@ export class Category {
 
 	@Column()
 	name: string;
+
+	@ManyToOne(() => Transaction, transaction => transaction.category)
+	transaction: Transaction;
 }

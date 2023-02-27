@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CategoryRequest, CategoryResponse, UpdateCategory } from 'src/dto';
+import { CategoryRequest, CategoryResponse, UpdateCategory } from 'src/common/dto';
 import { CategoryService } from './category.service';
 
 @Controller('category')

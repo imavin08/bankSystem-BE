@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsNumber } from 'class-validator';
-import { BankDto } from '../bank.dto';
 
-export class BankResponse extends BankDto {
+export class PaginationRequest {
 	@ApiProperty({ example: 1 })
 	@Expose()
 	@IsNumber()
-	id: number;
+	page: number;
 
-	@ApiProperty({ example: 1 })
+	@ApiProperty({ example: 5 })
 	@Expose()
-	transaction: any;
+	@IsNumber()
+	limit: number;
 }

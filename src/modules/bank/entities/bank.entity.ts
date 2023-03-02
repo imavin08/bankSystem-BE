@@ -12,6 +12,8 @@ export class Bank {
 	@Column()
 	balance: number;
 
-	@OneToMany(() => Transaction, transaction => transaction.bank)
+	@OneToMany(() => Transaction, transaction => transaction.bank, {
+		onDelete: 'RESTRICT',
+	})
 	transaction: Transaction[];
 }

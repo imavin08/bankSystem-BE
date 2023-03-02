@@ -9,6 +9,16 @@ import { BankService } from './bank.service';
 export class BankController {
 	constructor(private readonly bankService: BankService) {}
 
+	@Post()
+	@ApiOperation({
+		summary: '[CreateBank]',
+		description: 'create bank',
+	})
+	@ApiResponse({ type: BankResponse })
+	async createBank(@Body() request: BankRequest): Promise<BankResponse> {
+		return this.bankService.createBank(request);
+	}
+
 	@Get()
 	@ApiOperation({
 		summary: '[FindAllBanks]',
@@ -27,16 +37,6 @@ export class BankController {
 	@ApiResponse({ type: BankResponse })
 	async findBankById(@Param('id') id: number): Promise<BankResponse> {
 		return this.bankService.findBankById(id);
-	}
-
-	@Post()
-	@ApiOperation({
-		summary: '[CreateBank]',
-		description: 'create bank',
-	})
-	@ApiResponse({ type: BankResponse })
-	async createBank(@Body() request: BankRequest): Promise<BankResponse> {
-		return this.bankService.createBank(request);
 	}
 
 	@Patch(':id')

@@ -8,6 +8,16 @@ import { CategoryService } from './category.service';
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
 
+	@Post()
+	@ApiOperation({
+		summary: '[CreateCategory]',
+		description: 'create category',
+	})
+	@ApiResponse({ type: CategoryResponse })
+	async createCategory(@Body() request: CategoryRequest): Promise<CategoryResponse> {
+		return this.categoryService.createCategory(request);
+	}
+
 	@Get()
 	@ApiOperation({
 		summary: '[FindAllCategories]',
@@ -28,16 +38,6 @@ export class CategoryController {
 		return this.categoryService.findCategoryById(id);
 	}
 
-	@Post()
-	@ApiOperation({
-		summary: '[CreateCategory]',
-		description: 'create category',
-	})
-	@ApiResponse({ type: CategoryResponse })
-	async createCategory(@Body() request: CategoryRequest): Promise<CategoryResponse> {
-		return this.categoryService.createCategory(request);
-	}
-
 	@Patch(':id')
 	@ApiOperation({
 		summary: '[UpdateCategory]',
@@ -54,7 +54,7 @@ export class CategoryController {
 		description: 'delete category',
 	})
 	@ApiResponse({ type: CategoryResponse })
-	async deleteCategory(@Param('id') id: number): Promise<void> {
-		await this.categoryService.deleteCategory(id);
+	async deleteCategory(@Param('id') id: number): Promise<CategoryResponse> {
+		return this.categoryService.deleteCategory(id);
 	}
 }

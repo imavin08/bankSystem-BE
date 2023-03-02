@@ -1,5 +1,5 @@
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
 @Entity()
 export class Category {
@@ -9,6 +9,8 @@ export class Category {
 	@Column()
 	name: string;
 
-	@ManyToOne(() => Transaction, transaction => transaction.category)
+	@ManyToMany(() => Transaction, transaction => transaction.category, {
+		onDelete: 'RESTRICT',
+	})
 	transaction: Transaction;
 }

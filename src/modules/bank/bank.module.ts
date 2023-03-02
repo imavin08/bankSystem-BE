@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { RepositoryModule } from 'src/repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { BankController } from './bank.controller';
 import { BankService } from './bank.service';
+import { Bank } from './entities/bank.entity';
 
-const providers = [BankService];
 @Module({
-	imports: [RepositoryModule],
+	imports: [TypeOrmModule.forFeature([Bank])],
 	controllers: [BankController],
-	providers,
-	exports: [...providers],
+	providers: [BankService],
+	exports: [TypeOrmModule],
 })
 export class BankModule {}

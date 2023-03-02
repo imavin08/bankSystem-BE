@@ -1,37 +1,45 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { BankRequest, BankResponse } from 'src/common/dto';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BankRequest } from 'src/common/dto';
 import { UpdateBankRequest } from 'src/common/dto/bank/requests/update-bank.request';
-import { BankRepository } from 'src/repository';
+import { Repository } from 'typeorm';
+import { Bank } from './entities/bank.entity';
 
 @Injectable()
 export class BankService {
-	constructor(private readonly bankRepository: BankRepository) {}
+	constructor(
+		@InjectRepository(Bank)
+		private bankRepository: Repository<Bank>
+	) {}
 
-	async findAllBanks(): Promise<BankResponse[]> {
-		return this.bankRepository.findAll();
+	async createBank(request: BankRequest): Promise<Bank> {
+		return this.bankRepository.save(request);
 	}
 
-	async findBankById(id: number): Promise<BankResponse> {
-		const bank = await this.bankRepository.findById(id);
+	async findAllBanks(): Promise<Bank[]> {
+		return this.bankRepository.find();
+	}
+
+	async findBankById(id: number): Promise<Bank> {
+		const bank = await this.bankRepository.findOne({ where: { id } });
 		if (!bank) {
-			throw new NotFoundException(`Bank with id ${id} was not found`);
+			throw new NotFoundException(`Bank with id ${id} not found`);
 		}
 		return bank;
 	}
 
-	async createBank(request: BankRequest): Promise<BankResponse> {
-		return this.bankRepository.create(request);
-	}
-
-	async updateBank(id: number, data: UpdateBankRequest): Promise<BankResponse> {
+	async updateBank(id: number, data: UpdateBankRequest): Promise<Bank> {
 		const bank = await this.findBankById(id);
 		await this.bankRepository.update(id, data);
-
 		return { ...bank, ...data };
 	}
 
 	async deleteBank(id: number): Promise<void> {
 		await this.findBankById(id);
-		await this.bankRepository.delete(id);
+		try {
+			await this.bankRepository.delete(id);
+		} catch (error) {
+			throw new BadRequestException(error.message);
+		}
 	}
 }

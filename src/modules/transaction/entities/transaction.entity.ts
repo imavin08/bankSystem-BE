@@ -6,8 +6,9 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	ManyToOne,
-	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -26,9 +27,13 @@ export class Transaction {
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@ManyToOne(() => Bank, bank => bank.transaction)
+	@ManyToOne(() => Bank, bank => bank.transaction, { eager: true })
 	bank: Bank;
 
-	@OneToMany(() => Category, category => category.transaction)
+	@ManyToMany(() => Category, categoty => categoty.transaction, {
+		cascade: true,
+		eager: true,
+	})
+	@JoinTable()
 	category: Category[];
 }

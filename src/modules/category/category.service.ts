@@ -1,36 +1,56 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CategoryRequest, CategoryResponse, UpdateCategory } from 'src/common/dto';
-import { CategoryRepository } from 'src/repository';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CategoryRequest, UpdateCategory } from 'src/common/dto';
+import { Repository } from 'typeorm';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoryService {
-	constructor(private readonly categoryRepository: CategoryRepository) {}
+	constructor(
+		@InjectRepository(Category)
+		private readonly categoryRepository: Repository<Category>
+	) {}
 
-	async findAllCategories(): Promise<CategoryResponse[]> {
-		return this.categoryRepository.findAll();
+	async createCategory(request: CategoryRequest): Promise<Category> {
+		return this.categoryRepository.save(request);
 	}
 
-	async findCategoryById(id: number): Promise<CategoryResponse> {
-		const category = await this.categoryRepository.findById(id);
+	async findAllCategories(): Promise<Category[]> {
+		return this.categoryRepository.find();
+	}
+
+	async findCategoryById(id: number): Promise<Category> {
+		const category = await this.categoryRepository.findOne({ where: { id } });
 		if (!category) {
 			throw new NotFoundException(`Category with id ${id} was not found`);
 		}
 		return category;
 	}
 
-	async createCategory(request: CategoryRequest): Promise<CategoryResponse> {
-		return this.categoryRepository.create(request);
-	}
+	async findManyCategories(categoryIds: number[]): Promise<Category[]> {
+		const categories = await this.categoryRepository
+			.createQueryBuilder('category')
+			.where('category.id IN (:...categoryIds)', { categoryIds })
+			.getMany();
 
-	async updateCategory(id: number, data: UpdateCategory): Promise<CategoryResponse> {
+		if (!categories.length) {
+			throw new NotFoundException('Categories not found');
+		}
+		return categories;
+	}
+	async updateCategory(id: number, data: UpdateCategory): Promise<Category> {
 		const category = await this.findCategoryById(id);
 		await this.categoryRepository.update(id, data);
-
 		return { ...category, ...data };
 	}
 
-	async deleteCategory(id: number): Promise<void> {
-		await this.findCategoryById(id);
-		await this.categoryRepository.delete(id);
+	async deleteCategory(id: number): Promise<Category> {
+		const category = await this.findCategoryById(id);
+		try {
+			await this.categoryRepository.delete(id);
+		} catch (error) {
+			throw new BadRequestException(error.message);
+		}
+		return category;
 	}
 }

@@ -34,12 +34,13 @@ export class BankService {
 		return { ...bank, ...data };
 	}
 
-	async deleteBank(id: number): Promise<void> {
-		await this.findBankById(id);
+	async deleteBank(id: number): Promise<Bank> {
+		const bank = await this.findBankById(id);
 		try {
 			await this.bankRepository.delete(id);
 		} catch (error) {
 			throw new BadRequestException(error.message);
 		}
+		return bank;
 	}
 }

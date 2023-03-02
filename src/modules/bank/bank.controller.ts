@@ -55,7 +55,7 @@ export class BankController {
 		description: 'delete bank',
 	})
 	@ApiResponse({ type: BankResponse })
-	async deleteBank(@Param('id') id: number): Promise<void> {
-		await this.bankService.deleteBank(id);
+	async deleteBank(@Param('id') id: number): Promise<BankResponse> {
+		return this.bankService.deleteBank(id);
 	}
 }

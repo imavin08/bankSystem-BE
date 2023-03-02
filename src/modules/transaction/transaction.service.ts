@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import {
+	BadRequestException,
+	HttpException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionRequest } from 'src/common/dto/transaction';
 import { PaginationRequest } from 'src/common/dto/transaction/requests/pagination.request';
@@ -17,7 +23,8 @@ export class TransactionService {
 		private transactionRepository: Repository<Transaction>,
 		private dataSource: DataSource,
 		private readonly bankService: BankService,
-		private readonly categoryService: CategoryService
+		private readonly categoryService: CategoryService,
+		private readonly httpService: HttpService
 	) {}
 
 	async createTransaction(
@@ -44,6 +51,21 @@ export class TransactionService {
 			transaction.category = [...categories];
 			newTransaction = await queryRunner.manager.save(transaction);
 			await queryRunner.manager.save(currentBank);
+
+			// this.httpService
+			// 	.post(process.env.WEBHOOK_MAIL, {
+			// 		newTransaction,
+			// 	})
+			// 	.subscribe({
+			// 		complete: () => {
+			// 			console.log('Web-hook completed');
+			// 		},
+			// 		error: err => {
+			// 			throw new HttpException(err, 400, {
+			// 				cause: new Error(err.message),
+			// 			});
+			// 		},
+			// 	});
 
 			await queryRunner.commitTransaction();
 		} catch (err) {
